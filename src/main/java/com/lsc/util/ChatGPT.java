@@ -7,11 +7,15 @@ public class ChatGPT {
 
     String token = "OPENAI_TOKEN";//System.getenv("OPENAI_TOKEN");
 
-    public static void main(String[] args){
+    /**
+     * 输入问题
+     * @param question
+     */
+    public void ask(String question){
         OpenAiService service = new OpenAiService("OPENAI_TOKEN");
         CompletionRequest completionRequest = CompletionRequest.builder()
                 .model("")
-                .prompt("今天天气怎么样？")//这里可以自定义自己的问题
+                .prompt(question)//这里可以自定义自己的问题
                 .temperature(0.5)
                 .maxTokens(2048)
                 .topP(1D)
