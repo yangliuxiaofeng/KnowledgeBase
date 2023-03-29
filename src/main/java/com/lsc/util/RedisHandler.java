@@ -1,5 +1,6 @@
 package com.lsc.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class RedisHandler<T> {
 
+    @Autowired
     private RedisTemplate redisTemplate;
 
     /**
