@@ -3,12 +3,19 @@ package com.lsc.util;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.lsc.entity.ExcelData;
+import com.lsc.service.ExcelService;
 
 import java.util.Map;
 
-
 public class ExcelListener extends AnalysisEventListener<ExcelData> {
 
+    private ExcelService excelService;
+
+    public ExcelListener(){}
+
+    public ExcelListener(ExcelService excelService){
+        this.excelService = excelService;
+    }
     /**
      * 读取表头
      *
@@ -27,9 +34,10 @@ public class ExcelListener extends AnalysisEventListener<ExcelData> {
      */
     @Override
     public void invoke(ExcelData readData, AnalysisContext analysisContext) {
-        System.out.println("readData = " + readData);
-        System.out.println("readData.getData1() = " + readData.getData1());
-        System.out.println("readData.getData2() = " + readData.getData2());
+        excelService.save(readData);
+//        System.out.println("readData = " + readData);
+//        System.out.println("readData.getData1() = " + readData.getData1());
+//        System.out.println("readData.getData2() = " + readData.getData2());
     }
 
     /**
@@ -39,6 +47,6 @@ public class ExcelListener extends AnalysisEventListener<ExcelData> {
      */
     @Override
     public void doAfterAllAnalysed(AnalysisContext analysisContext) {
-
+        System.out.println("读取完成之后 " + analysisContext);
     }
 }
