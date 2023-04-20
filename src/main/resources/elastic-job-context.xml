@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:elasticjob="http://shardingsphere.apache.org/schema/elasticjob"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://shardingsphere.apache.org/schema/elasticjob
+                           http://shardingsphere.apache.org/schema/elasticjob/elasticjob.xsd">
+    <context:property-placeholder location="classpath:job-conf/*.properties"/>
+    <!--配置作业注册中心 -->
+    <elasticjob:zookeeper id="regCenter"
+                          server-lists="${zk.serverLists}"
+                          namespace="${zk.namespace}"
+                          base-sleep-time-milliseconds="${zk.baseSleepTimeMilliseconds}"
+                          max-sleep-time-milliseconds="${zk.maxSleepTimeMilliseconds}"
+                          max-retries="${zk.maxRetries}" />
+
+    <bean id="simpleJob" class="com.lsc.job.MySimpleJob"/>
+    <elasticjob:job id="${job.simple1.id}" job-ref="simpleJob" registry-center-ref="regCenter"
+                    sharding-total-count="${job.simple1.shardingTotalCount}"
+                    cron="${job.simple1.cron}"
+                    failover="${job.simple1.failover}"
+                    overwrite="${job.simple1.overwrite}"
+                    description="${job.simple1.description}"
+                    disabled="${job.simple1.disabled}"/>
+</beans>
