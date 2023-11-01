@@ -1,7 +1,9 @@
-server:
-  port: 8091
+#server:
+#  port: 8091
 
 spring:
+  profiles:
+    active: dev
   datasource:
     name: knowledgebase
     url: jdbc:mysql://127.0.0.1:3306/knowledgebase
